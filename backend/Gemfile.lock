@@ -233,6 +233,9 @@ GEM
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.2.5)
+    rack-cors (3.0.0)
+      logger
+      rack (>= 3.0.14)
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -390,6 +393,7 @@ DEPENDENCIES
   pragmatic_segmenter (~> 0.3.24)
   puma (>= 5.0)
   pycall (~> 1.5)
+  rack-cors
   rails (~> 8.1.2)
   rubocop-rails-omakase
   ruby-openai (~> 8.3)
