@@ -48,3 +48,11 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 end
+
+gem "ruby-openai", "~> 8.3"
+gem "dotenv-rails", "~> 3.2"
+
+gem "ruby-spacy", "~> 0.3.0"
+gem "pycall", "~> 1.5"
+
+gem "pragmatic_segmenter", "~> 0.3.24"
