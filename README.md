@@ -9,7 +9,7 @@
 > **Status:** Backend deployment is currently undergoing maintenance to resolve a platform-specific dependency issue on Render. Please refer to the screenshot below to see the frontend interface interacting with the sanitized response.
 
 
-### Executive Summary
+### Summary
 Architected a centralized AI Gateway utilizing **Ruby on Rails 8** and **React** to standardize LLM interactions across multiple providers. This system significantly reduces API sprawl and enhances developer velocity by providing a unified, secure interface for AI integration.
 
 The gateway features a real-time **PII Sanitization Engine** utilizing **Named Entity Recognition (NER)** to intercept "in-flight" requests and redact sensitive financial entities—ensuring Zero-Trust data privacy before data egress.
@@ -95,3 +95,12 @@ sequenceDiagram
     LLM-->>API: AI Response
     API->>DB: Log Latency, Tokens & Cost
     API->>User: Secure AI Response
+```
+
+### Roadmap & Future Development
+
+While the current architecture successfully sanitizes and proxies requests, there are a few key areas I am focusing on to make the gateway more robust and capable of handling higher traffic volumes:
+
+*   **Asynchronous Processing (Redis + Sidekiq):** Currently, LLM requests are processed synchronously. This can block the main server thread and create latency bottlenecks if multiple users hit the gateway simultaneously. I am integrating Redis and Sidekiq to decouple request ingestion from LLM execution. By shifting the heavy lifting to background workers, the primary API will remain highly responsive under load.
+*   **Response Caching:** I plan to leverage the same Redis instance to implement a caching layer for identical, sanitized prompts. This will reduce redundant third-party API calls, lower token costs, and provide near-instant responses for previously processed queries.
+*   **Rate Limiting & Throttling:** As the gateway scales to support more concurrent requests, implementing a robust rate-limiting middleware will be necessary to prevent abuse, manage costs, and distribute bandwidth fairly across multiple users.
